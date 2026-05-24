@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+.venv/
+.env
+data/alert_history.json
+data/settings.json
+data/watchlist.json
