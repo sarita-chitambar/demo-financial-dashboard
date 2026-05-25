@@ -21,7 +21,7 @@ pip install -r requirements.txt
 streamlit run app/dashboard.py
 ```
 
-The dashboard lets you filter by sector, review 5-business-day performance, inspect 1-year charts, search for more tickers, and add custom stocks to the watchlist.
+The dashboard lets you filter by sector, review 30-business-day average performance, inspect 1-year charts, search for more tickers, and add custom stocks to the watchlist.
 
 ## Email Reports
 
@@ -68,10 +68,20 @@ python -m app.alerts run-once --recipient recipient@example.com
 For a weekday morning cron job, run `crontab -e` and add a line like this, adjusting paths and recipient:
 
 ```cron
-30 6 * * 1-5 cd /Users/saritachitambar/Projects/demo_finance && /Users/saritachitambar/Projects/demo_finance/.venv/bin/python -m app.alerts run-once --recipient recipient@example.com
+30 6 * * 1-5 cd /path/to/demo-financial-dashboard && /path/to/demo-financial-dashboard/.venv/bin/python -m app.alerts run-once --recipient recipient@example.com
 ```
 
-The email subject is `Daily stock price report` when no stock crosses the threshold and `ALERT: Daily stock price report` when any watched stock rises or falls by at least 5% versus its prior 30-business-day average. The HTML body lists the current price, 30-day average, percentage change, colored rise/fall status, and inline 1-year plot for each watched company. The watchlist is stored in `data/watchlist.json`; SMTP secrets are only read from environment variables.
+The email subject is `Daily stock price report` when no stock crosses the threshold and `ALERT: Daily stock price report` when any watched stock rises or falls by at least 5% versus its prior 30-business-day average. The HTML body lists the current price, 30-day average, percentage change, colored rise/fall status, and inline 1-year plot for each watched company. The watchlist is stored locally in `data/watchlist.json`; SMTP secrets are read from environment variables or a local `.env` file that is ignored by git.
+
+## Private Local Files
+
+Do not commit real credentials or local runtime data. The repo intentionally ignores:
+
+- `.env` and other local env files
+- `data/*.json`, including saved recipients, watchlists, and alert history
+- log files and private key files
+
+Use `.env.example` only as a placeholder template.
 
 ## Tests
 

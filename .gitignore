@@ -2,6 +2,10 @@ __pycache__/
 .pytest_cache/
 .venv/
 .env
-data/alert_history.json
-data/settings.json
-data/watchlist.json
+*.env
+.env.*
+!.env.example
+*.log
+*.pem
+*.key
+data/*.json
